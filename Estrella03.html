@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tipos de Malware | Guía Completa de Ciberseguridad</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Colores pasteles principales */
+      --pastel-lavender: #F5F0FF;
+      --pastel-mint: #F0FFF8;
+      --pastel-rose: #FFF0F5;
+      --pastel-peach: #FFF8F0;
+      --pastel-sky: #F0F8FF;
+      --pastel-coral: #FFE8E8;
+      --pastel-yellow: #FFFEF0;
+      --pastel-purple: #F8F0FF;
+      
+      /* Colores de acento */
+      --primary-purple: #B19CD9;
+      --secondary-blue: #87CEEB;
+      --accent-coral: #FFB6C1;
+      --accent-mint: #98FB98;
+      --accent-gold: #F0E68C;
+      --dark-gray: #4A5568;
+      
+      /* Sombras */
+      --shadow-light: 0 4px 6px rgba(0,0,0,0.05);
+      --shadow-medium: 0 8px 25px rgba(0,0,0,0.08);
+      --shadow-hover: 0 12px 35px rgba(0,0,0,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--pastel-lavender), var(--pastel-sky), var(--pastel-mint), var(--pastel-rose));
+      margin: 0;
+      padding: 20px;
+      color: var(--dark-gray);
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue), var(--accent-coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+      animation: fadeInDown 1s ease-out;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.3rem;
+      color: var(--primary-purple);
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    .card {
+      max-width: 1400px;
+      margin: 10px auto 30px auto;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(255,255,255,0.4);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary-purple), var(--secondary-blue), var(--accent-coral), var(--accent-mint));
+      border-radius: 25px 25px 0 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: transparent;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
+    }
+
+    th, td {
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 18px 15px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue));
+      color: #fff;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr {
+      transition: all 0.3s ease;
+      position: relative;
+      animation: slideIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    /* Colores alternos para las filas */
+    tbody tr:nth-child(1) { 
+      background: linear-gradient(90deg, var(--pastel-mint), var(--pastel-sky)); 
+      animation-delay: 0.1s;
+    }
+    tbody tr:nth-child(2) { 
+      background: linear-gradient(90deg, var(--pastel-rose), var(--pastel-peach)); 
+      animation-delay: 0.2s;
+    }
+    tbody tr:nth-child(3) { 
+      background: linear-gradient(90deg, var(--pastel-lavender), var(--pastel-purple)); 
+      animation-delay: 0.3s;
+    }
+    tbody tr:nth-child(4) { 
+      background: linear-gradient(90deg, var(--pastel-coral), var(--pastel-rose)); 
+      animation-delay: 0.4s;
+    }
+    tbody tr:nth-child(5) { 
+      background: linear-gradient(90deg, var(--pastel-yellow), var(--pastel-peach)); 
+      animation-delay: 0.5s;
+    }
+    tbody tr:nth-child(6) { 
+      background: linear-gradient(90deg, var(--pastel-sky), var(--pastel-mint)); 
+      animation-delay: 0.6s;
+    }
+    tbody tr:nth-child(7) { 
+      background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-lavender)); 
+      animation-delay: 0.7s;
+    }
+    tbody tr:nth-child(8) { 
+      background: linear-gradient(90deg, var(--pastel-peach), var(--pastel-coral)); 
+      animation-delay: 0.8s;
+    }
+    tbody tr:nth-child(9) { 
+      background: linear-gradient(90deg, var(--pastel-mint), var(--pastel-yellow)); 
+      animation-delay: 0.9s;
+    }
+    tbody tr:nth-child(10) { 
+      background: linear-gradient(90deg, var(--pastel-rose), var(--pastel-sky)); 
+      animation-delay: 1.0s;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    tbody tr:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      z-index: 10;
+      background: linear-gradient(90deg, var(--accent-mint), var(--accent-coral)) !important;
+    }
+
+    .malware-name {
+      font-weight: 700;
+      color: var(--primary-purple);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .malware-icon {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--accent-coral), var(--primary-purple));
+    }
+
+    td img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      border-radius: 50%;
+      padding: 8px;
+      background: rgba(255,255,255,0.5);
+      box-shadow: var(--shadow-light);
+      transition: all 0.3s ease;
+    }
+
+    td img:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .description {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .impact {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .example {
+      color: var(--primary-purple);
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    /* Botón regresar */
+    .back-container {
+      max-width: 1400px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .btn-back {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue));
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: var(--shadow-medium);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+      font-size: 1rem;
+    }
+
+    .btn-back:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      background: linear-gradient(135deg, var(--accent-coral), var(--primary-purple));
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer-info {
+      margin-top: 40px;
+      text-align: center;
+      padding: 25px;
+      background: linear-gradient(90deg, var(--pastel-mint), var(--pastel-sky));
+      border-radius: 20px;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .author {
+      color: var(--primary-purple);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 2.2rem; }
+      .card { padding: 20px; margin: 10px; }
+      th, td { 
+        font-size: 14px; 
+        padding: 12px 8px;
+      }
+      td img { 
+        width: 50px; 
+        height: 50px; 
+      }
+      .btn-back { 
+        padding: 10px 20px; 
+        font-size: 14px; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 15px; }
+      th, td { 
+        font-size: 12px; 
+        padding: 10px 6px;
+      }
+      td img { 
+        width: 40px; 
+        height: 40px; 
+      }
+      .malware-name { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-container">
+    <a class="btn-back" href="index.html" title="Regresar al inicio">
+      🏠 Regresar al inicio
+    </a>
+  </div>
+
+  <h1>🛡️ Tipos de Malware</h1>
+  <p class="subtitle">Guía Completa de Amenazas Cibernéticas</p>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>🎯 Tipo de Malware</th>
+          <th>📋 Descripción</th>
+          <th>⚡ Impacto</th>
+          <th>💡 Ejemplo</th>
+          <th>🖼️ Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Phishing
+            </div>
+          </td>
+          <td class="description">Engaña al usuario para robar información personal como contraseñas o cuentas bancarias a través de comunicaciones falsas.</td>
+          <td class="center impact">Pérdida de identidad y dinero</td>
+          <td class="center example">Correos falsos de bancos</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Phishing">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Ransomware
+            </div>
+          </td>
+          <td class="description">Bloquea el acceso a la computadora y cifra archivos, exigiendo un rescate para recuperarlos.</td>
+          <td class="center impact">Pérdida de datos y dinero</td>
+          <td class="center example">WannaCry, CryptoLocker</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/1694/1694364.png" alt="Ransomware">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Spyware
+            </div>
+          </td>
+          <td class="description">Recopila información del usuario sin su consentimiento (actividad, contraseñas, datos personales).</td>
+          <td class="center impact">Robo de datos personales</td>
+          <td class="center example">Keyloggers, Pegasus</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3524/3524388.png" alt="Spyware">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Worm (Gusano)
+            </div>
+          </td>
+          <td class="description">Se replica automáticamente por redes sin intervención del usuario y puede provocar grandes contagios.</td>
+          <td class="center impact">Saturación de redes y fallo en sistemas</td>
+          <td class="center example">ILOVEYOU, Conficker</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/483/483361.png" alt="Worm">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Troyano
+            </div>
+          </td>
+          <td class="description">Se oculta en programas aparentemente legítimos para abrir puertas traseras a atacantes.</td>
+          <td class="center impact">Control remoto del sistema</td>
+          <td class="center example">Troyanos bancarios, Zeus</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Troyano">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Adware
+            </div>
+          </td>
+          <td class="description">Muestra anuncios no deseados y rastrea hábitos de navegación del usuario.</td>
+          <td class="center impact">Degradación del rendimiento</td>
+          <td class="center example">Pop-ups maliciosos</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" alt="Adware">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Rootkit
+            </div>
+          </td>
+          <td class="description">Permanece oculto en el sistema operativo con privilegios de administrador para control persistente.</td>
+          <td class="center impact">Control total y silencioso</td>
+          <td class="center example">Sony BMG Rootkit</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/2913/2913465.png" alt="Rootkit">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Botnet
+            </div>
+          </td>
+          <td class="description">Red de computadoras infectadas controladas remotamente para ataques coordinados.</td>
+          <td class="center impact">Ataques DDoS masivos</td>
+          <td class="center example">Mirai, Emotet</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/2920/2920349.png" alt="Botnet">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Virus
+            </div>
+          </td>
+          <td class="description">Se adjunta a archivos ejecutables y se replica cuando el archivo infectado se ejecuta.</td>
+          <td class="center impact">Corrupción de archivos</td>
+          <td class="center example">Melissa, CIH/Chernobyl</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/2913/2913073.png" alt="Virus">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="center">
+            <div class="malware-name">
+              <span class="malware-icon"></span>
+              Cryptojacking
+            </div>
+          </td>
+          <td class="description">Usa recursos de la computadora víctima para minar criptomonedas sin consentimiento.</td>
+          <td class="center impact">Degradación del rendimiento</td>
+          <td class="center example">Coinhive, XMRig</td>
+          <td class="center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png" alt="Cryptojacking">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-info">
+      <p>📚 <strong>Guía elaborada por:</strong> <span class="author">Estrella Lizeth</span></p>
+      <p>🔒 Especialista en Ciberseguridad | 🛡️ Protección Digital</p>
+    </div>
+
+    <div style="margin-top: 20px; text-align: center;">
+      <a class="btn-back" href="index.html" title="Regresar al inicio">
+        🏠 Regresar al inicio
+      </a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciberseguridad 02 - Tipos de Ataques | Estrella Lizeth</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        :root {
+            --pastel-lavender: #E6E6FA;
+            --pastel-mint: #F0FFF0;
+            --pastel-rose: #FFE4E1;
+            --pastel-peach: #FFEFD5;
+            --pastel-sky: #E0F6FF;
+            --primary-purple: #9B59B6;
+            --secondary-blue: #5DADE2;
+            --accent-coral: #FF7F7F;
+            --dark-gray: #2C3E50;
+            --shadow-light: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-medium: 0 8px 25px rgba(0,0,0,0.1);
+            --shadow-hover: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--pastel-lavender), var(--pastel-sky), var(--pastel-mint));
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; right:0;
+            height:6px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-blue), var(--accent-coral));
+            border-radius: 24px 24px 0 0;
+        }
+
+        .header { text-align:center; margin-bottom:40px; padding:20px 0; }
+        h1 {
+            font-family:'Poppins',sans-serif;
+            font-size:3.2rem;
+            font-weight:700;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom:10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 { font-size:1.4rem; color: var(--primary-purple); font-weight:500; margin-bottom:15px; }
+        .author {
+            font-size:1.1rem;
+            color: var(--secondary-blue);
+            font-weight:600;
+            margin-bottom:10px;
+            padding:8px 20px;
+            background: linear-gradient(90deg, var(--pastel-rose), var(--pastel-peach));
+            border-radius:25px;
+            display:inline-block;
+            box-shadow: var(--shadow-light);
+        }
+        .description { font-size:1.1rem; color:#666; max-width:600px; margin:0 auto 30px; line-height:1.7; }
+
+        /* Botón de regreso fijo */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            color:white;
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .table-container {
+            margin-top:30px;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow: var(--shadow-light);
+            background:white;
+        }
+        table { width:100%; border-collapse: collapse; font-size:1rem; }
+        thead { background: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue)); }
+        th { padding:20px 24px; font-weight:600; font-size:1.1rem; color:white; text-align:left; letter-spacing:0.5px; border-bottom:none; }
+        tbody tr { transition: all 0.3s ease; position:relative; }
+        tbody tr:nth-child(odd) { background: linear-gradient(90deg, var(--pastel-mint), var(--pastel-sky)); }
+        tbody tr:nth-child(even) { background: linear-gradient(90deg, var(--pastel-rose), var(--pastel-peach)); }
+        tbody tr:hover { transform:translateY(-2px); box-shadow: var(--shadow-hover); z-index:10; }
+        td { padding:18px 24px; border:none; border-bottom:1px solid rgba(255,255,255,0.3); vertical-align:top; }
+        .attack-type { font-weight:600; color: var(--primary-purple); font-size:1.05rem; }
+        .function-col { color:#444; font-weight:500; }
+        .impact-col { color:#666; }
+        .attack-icon { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:8px; background: var(--accent-coral); }
+        .footer { margin-top:40px; text-align:center; padding:20px 0; border-top:2px solid var(--pastel-lavender); }
+        .signature { font-size:0.95rem; color:#666; font-style:italic; }
+        .signature .name { color: var(--primary-purple); font-weight:600; font-style:normal; }
+        .fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity:0; }
+        @keyframes fadeInUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+        tbody tr { animation: slideIn 0.6s ease-out forwards; }
+        tbody tr:nth-child(1) { animation-delay: 0.1s; }
+        tbody tr:nth-child(2) { animation-delay: 0.2s; }
+        tbody tr:nth-child(3) { animation-delay: 0.3s; }
+        tbody tr:nth-child(4) { animation-delay: 0.4s; }
+        tbody tr:nth-child(5) { animation-delay: 0.5s; }
+        tbody tr:nth-child(6) { animation-delay: 0.6s; }
+        tbody tr:nth-child(7) { animation-delay: 0.7s; }
+        tbody tr:nth-child(8) { animation-delay: 0.8s; }
+        tbody tr:nth-child(9) { animation-delay: 0.9s; }
+        tbody tr:nth-child(10) { animation-delay: 1s; }
+        @keyframes slideIn { from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:translateX(0);} }
+
+        @media(max-width:768px){ .container{ margin:10px; padding:20px; border-radius:16px; } h1{ font-size:2.4rem; } h2{ font-size:1.2rem; } .author{ font-size:1rem; padding:6px 16px; } .description{ font-size:1rem; } th, td{ padding:12px 16px; font-size:0.9rem; } th{ font-size:1rem; } }
+        @media(max-width:480px){ body{ padding:10px; } .container{ margin:5px; padding:15px; } h1{ font-size:2rem; } .author{ font-size:0.9rem; padding:5px 12px; } th, td{ padding:10px 12px; font-size:0.85rem; } .attack-type{ font-size:1rem; } }
+    </style>
+</head>
+<body>
+    <a href="#" class="back-button" onclick="window.location.href='index.html'; return false;">🏠 Regresar al Inicio</a>
+
+    <div class="container fade-in">
+        <div class="header">
+            <h1 class="shine">Ciberseguridad 02</h1>
+            <h2>Tipos de Ataques Informáticos</h2>
+            <div class="author">📚 Creado por: Estrella Lizeth</div>
+            <div class="description">
+                Conoce los diferentes tipos de ataques que pueden comprometer la seguridad de sistemas y datos.
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Ataque</th>
+                        <th>Función / Cómo actúa</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Phishing</td>
+                        <td class="function-col">Engaña al usuario para que revele información sensible</td>
+                        <td class="impact-col">Robo de contraseñas, datos bancarios, identidad</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Ransomware</td>
+                        <td class="function-col">Secuestra archivos y pide rescate</td>
+                        <td class="impact-col">Pérdida de datos, paraliza sistemas</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Ataque DDoS</td>
+                        <td class="function-col">Satura servidores con tráfico masivo</td>
+                        <td class="impact-col">Interrupción de servicios, caída de sitios web</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Inyección SQL</td>
+                        <td class="function-col">Inserta comandos maliciosos en bases de datos</td>
+                        <td class="impact-col">Robo o destrucción de información</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Cross-Site Scripting (XSS)</td>
+                        <td class="function-col">Inserta scripts maliciosos en páginas web</td>
+                        <td class="impact-col">Robo de cookies, control de cuentas, redirecciones</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Man-in-the-Middle (MitM)</td>
+                        <td class="function-col">Intercepta comunicaciones entre dos partes</td>
+                        <td class="impact-col">Robo de información, manipulación de datos</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Spoofing</td>
+                        <td class="function-col">Suplantación de identidad o dirección IP</td>
+                        <td class="impact-col">Acceso no autorizado, engaños a usuarios</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Malware móvil</td>
+                        <td class="function-col">Software malicioso en smartphones</td>
+                        <td class="impact-col">Robo de información, control del dispositivo</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Ingeniería social</td>
+                        <td class="function-col">Manipulación psicológica para obtener datos o acceso</td>
+                        <td class="impact-col">Robo de información, acceso a sistemas críticos</td>
+                    </tr>
+                    <tr>
+                        <td class="attack-type"><span class="attack-icon"></span>Exploit</td>
+                        <td class="function-col">Aprovecha vulnerabilidades del software</td>
+                        <td class="impact-col">Daño al sistema, control remoto, robo de datos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <div class="signature">
+                Elaborado con 💜 por <span class="name">Estrella Lizeth</span> - Especialista en Ciberseguridad
+            </div>
+        </div>
+    </div>
+</body>
+</html>
